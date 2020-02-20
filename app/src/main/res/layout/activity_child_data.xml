@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.ChildDataActivity">
+
+    <EditText
+        android:id="@+id/childNameField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@android:dimen/notification_large_icon_height"
+        android:ems="10"
+        android:hint="@string/child_name"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <Button
+        android:id="@+id/ChildDataConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:onClick="onConfirm"
+        android:text="@string/Confirm"
+        app:layout_constraintStart_toStartOf="@+id/datePicker"
+        app:layout_constraintTop_toBottomOf="@+id/datePicker" />
+
+    <CalendarView
+        android:id="@+id/datePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/childNameField"
+        app:layout_constraintTop_toBottomOf="@+id/dateText" />
+
+    <TextView
+        android:id="@+id/Birthday_Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/birthday"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/childNameField"
+        app:layout_constraintTop_toBottomOf="@+id/childNameField" />
+
+    <EditText
+        android:id="@+id/dateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date"
+        android:isScrollContainer="false"
+        app:layout_constraintStart_toStartOf="@+id/Birthday_Text"
+        app:layout_constraintTop_toBottomOf="@+id/Birthday_Text"
+        tools:text="@string/dateFormat" />
+</androidx.constraintlayout.widget.ConstraintLayout>

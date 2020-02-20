@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">DaycareApp</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="Login">login</string>
+    <string name="new_user_button">New User</string>
+    <string name="Confirm">Confirm</string>
+    <string name="name_Field">Name: </string>
+    <string name="phone_Field">Phone Number: </string>
+    <string name="address_Field">Address: </string>
+    <string name="city_Field">City: </string>
+    <string name="email_Field">E-mail: </string>
+    <string name="edit_Button">Edit</string>
+    <string name="ViewChildren">View Children</string>
+    <string name="child_name">First name, Last name</string>
+    <string name="birthday">Birthday</string>
+    <string name="dateFormat">mm/dd/yyyy</string>
+    <string name="Start_day">Set Start Date</string>
+    <string name="End_day">Set End Date</string>
+
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>
