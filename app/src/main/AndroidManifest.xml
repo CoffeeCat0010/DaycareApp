@@ -20,7 +20,9 @@
         <activity android:name=".Activities.ChildrenActivity" />
         <activity android:name=".Activities.ParentDataActivity" />
         <activity android:name=".Activities.DashboardActivity" />
+        <activity android:name=".Activities.ConfirmRegistrationActivity"/>
         <activity android:name=".Activities.LoginActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

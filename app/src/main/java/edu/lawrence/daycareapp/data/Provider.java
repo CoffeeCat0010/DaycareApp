@@ -2,6 +2,7 @@ package edu.lawrence.daycareapp.data;
 
 public class Provider {
 
+    private int id;
     private String name;
     private String address;
     private String city;
@@ -11,6 +12,14 @@ public class Provider {
     private double dist;
 
     public Provider(){}
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

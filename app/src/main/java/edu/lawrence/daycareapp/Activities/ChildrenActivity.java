@@ -1,11 +1,5 @@
 package edu.lawrence.daycareapp.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -15,6 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 
@@ -67,6 +67,11 @@ public class ChildrenActivity extends AppCompatActivity {
     private void onAddButtonPressed(View view){
         toChildDataEntry(parent);
     }
+    public void onRegisterButtonPressed(View view) {
+        ChildAdapter adapter = (ChildAdapter) mChildren.getAdapter();
+        int childId = adapter.getChildFromDataSet(adapter.getSelected()).getId();
+        toRegistration(childId, parent);
+    }
     private void toChildDataEntry(int parentId) {
         Intent intent = new Intent(this, ChildDataActivity.class);
         intent.putExtra("parent", parentId);
@@ -78,7 +83,7 @@ public class ChildrenActivity extends AppCompatActivity {
         intent.putExtra("child", childId);
         startActivity(intent);
     }
-    private void toRegistion(int childId, int parentId){
+    private void toRegistration(int childId, int parentId){
         Intent intent = new Intent(this, Registration_Activity.class);
         intent.putExtra("child", childId);
         intent.putExtra("parent", parentId);
@@ -124,7 +129,7 @@ public class ChildrenActivity extends AppCompatActivity {
                 notifyItemChanged(selected);
                 selected = getAdapterPosition();
                 notifyItemChanged(selected);
-                toRegistion(mDataSet.get(selected).getId(), mDataSet.get(selected).getParent());
+                //toRegistion(mDataSet.get(selected).getId(), mDataSet.get(selected).getParent());
             }
         }
         public ChildAdapter(){

@@ -1,24 +1,22 @@
 package edu.lawrence.daycareapp.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -69,15 +67,45 @@ public class Registration_Activity extends AppCompatActivity {
 
     }
 
-    private class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ProviderViewHolder>{
+    public void goToRegConfirm(Provider provider){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date start = null;
+        Date end = null;
+        try {
+            start = simpleDateFormat.parse(startDate);
+            end = simpleDateFormat.parse(endDate);
+        } catch (ParseException e) {
+            Log.d("Error", "Could not parse date");
+        }
+        Intent intent = new Intent(this, ConfirmRegistrationActivity.class);
+        intent.putExtra("parent", parentid);
+        intent.putExtra("provider", provider.getId());
+        intent.putExtra("child", childid);
+        intent.putExtra("start", start );
+        intent.putExtra("end", end);
+        startActivity(intent);
+    }
 
-        private class ProviderViewHolder extends RecyclerView.ViewHolder {
+    private class ProviderAdapter extends RecyclerView.Adapter<ProviderAdapter.ProviderViewHolder> {
+        private int selected;
+        private class ProviderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
             private TextView name;
             private TextView distance;
             public ProviderViewHolder(View v) {
                 super(v);
                 name = v.findViewById(R.id.ProviderNameText);
                 distance = v.findViewById(R.id.ProviderDistanceText);
+                v.setOnClickListener(this::onClick);
+                selected = -1;
+            }
+
+            @Override
+            public void onClick(View v) {
+                if(getAdapterPosition() == RecyclerView.NO_POSITION) return;
+                notifyItemChanged(selected);
+                selected = getAdapterPosition();
+                notifyItemChanged(selected);
+                goToRegConfirm(mDataset.get(selected));
             }
         }
 
@@ -94,7 +122,7 @@ public class Registration_Activity extends AppCompatActivity {
         public void onBindViewHolder(ProviderViewHolder holder, int position) {
             holder.name.setText(mDataset.get(position).getName());
             holder.distance.setText(mDataset.get(position).getAddress() + ", " + mDataset.get(position).getCity());
-
+            holder.itemView.setBackgroundColor(selected == position ? Color.DKGRAY : android.R.style.Theme_Black_NoTitleBar);
         }
 
         @Override
@@ -102,10 +130,6 @@ public class Registration_Activity extends AppCompatActivity {
             return mDataset.size();
         }
 
-        public void setDataSet(ArrayList<Provider> dataSet){
-            mDataset = dataSet;
-            notifyDataSetChanged();
-        }
         public void setDataSet(Provider[] list){
             mDataset.clear();
             mDataset.addAll(Arrays.asList(list));
@@ -114,7 +138,6 @@ public class Registration_Activity extends AppCompatActivity {
 
 
     }
-
     private class getParentTask extends  AsyncTask<Void, Void, Parent>{
         String uri = null;
         public getParentTask(int parentId) {
@@ -132,8 +155,6 @@ public class Registration_Activity extends AppCompatActivity {
             childParent = parent;
         }
     }
-
-
     private class getProvidersTask extends AsyncTask <Void, Void, Provider[]> {
         String uri = null;
 
